@@ -7,11 +7,14 @@
 Tell me what are your build and what tools are you using?
 My build is a book and author database with user authentication in which the user can search for specific books or authors. 
 
-## Models
+## Models ##
 
 List here any models in your app and their properties
 My model here is books.js, this is where all the data pertaining to books goes. It will be required later in the main file which is server.js.
 
+
+
+``` js
 const books = [
     {
         author: 'Kenyatta Young',
@@ -34,6 +37,7 @@ const books = [
         readyForPublishing: false
     },
 ]
+````
 
 ## Route Table
 
