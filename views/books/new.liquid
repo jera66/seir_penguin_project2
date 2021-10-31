@@ -1,0 +1,22 @@
+{% layout "layout.liquid" %}
+{% block content %}
+
+<div>
+
+ <form action="/books" method="post">
+  <fieldset>
+    <legend>Create or Add a New Book</legend>
+        <label>
+            Name: <input type="text" name="name" placeholder="Enter the title of the new book"/>
+        </label>
+        <label>
+            Ready to Eat: <input type="checkbox" name="readyForPublishing"/>
+        </label>
+    </fieldset>
+    <input type="submit" value="Create  new book"/>
+ </form>
+
+</div>
+
+
+{% endblock %}

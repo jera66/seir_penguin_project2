@@ -1,0 +1,26 @@
+{% layout "layout.liquid" %}
+{% block content %}
+
+<div>
+
+ <form action="/books/{{ book._id }}?_method=PUT" method="post">
+ <fieldset>
+     <legend>Edit {{ book.title }}</legend>
+        <label>
+            Title of the book: <input type="text" name="name" placeholder="Enter the title of the book." value="{{book.title}}"/>
+        </label>
+        <label>
+            Ready for publishing: <input type="checkbox" name="readyForPublishing"
+            {% if book.readyForPublishing == true %}
+            checked
+            {% endif %}
+            >
+        </label>
+ </fieldset>
+    <input type="submit" value="update {{book.title}}"/>
+ </form>
+
+</div>
+
+
+{% endblock %}

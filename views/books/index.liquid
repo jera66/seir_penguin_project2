@@ -1,0 +1,27 @@
+{% layout "layout.liquid" %}
+{% block content %}
+
+<div>
+    <a href="/books/new"><button>Add a New Book</button></a>
+    <a href="/user/logout"><button>Logout</button></a>
+    {% for book in books %}
+        <article>
+        
+        <a href="/books/{{ book._id }}">
+            <h2>
+            {{book.title}} - 
+                {% if book.readyForPublishing == true %}
+                    Ready to be published.
+                {% else %}
+                    Editing in progress.
+                {% endif %}
+
+            </h2>
+        </a>
+</article>
+{% endfor %}
+
+
+</div>
+
+{% endblock %}

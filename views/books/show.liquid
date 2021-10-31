@@ -1,0 +1,22 @@
+{% layout "layout.liquid" %}
+{% block content %}
+
+<article>
+
+    <h2> {{book.title}} - 
+        {% if book.readyForPublishing == true %}
+            This book is ready for publishing.
+        {% else %}
+            Editing in progress.
+        {% endif %}
+    </h2>
+    <a href="/books/{{ book._id }}/edit"><button>EDIT</button></a>
+    <form action="/books/{{ book._id }}?_method=DELETE" method="post">
+    <input type="submit" value="DELETE">
+    </form>
+    <a href="/books"><button>Back to Main</button></a>
+
+</article>
+
+
+{% endblock %}
