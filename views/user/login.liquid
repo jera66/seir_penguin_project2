@@ -1,18 +1,12 @@
-{% layout "layout.liquid" %}
-{% block content %}
+{% layout "layout.liquid" %} {% block content %}
 <div>
-<form action="/user/log in" method="post">
-<fieldset>
-<legend>Log in</legend>
-<label>
-    Username: <input type="text" name="Username" required/> 
-</label>
-<label>
-    Password: <input type="Password" name="Password" required/>
-</label>
-<input type="submit" value="Log in"/>
-</fieldset>
-
-</form>
+    <form action="/user/login" method="post">
+        <fieldset>
+            <legend>User Login</legend>
+            <label>Username: <input type="text" name="username" required/> </label>
+            <label>Password: <input type="password" name="password" required/></label>
+            <input type="submit" value="Log in"/>
+        </fieldset>
+    </form>
 </div>
 {% endblock %}

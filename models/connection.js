@@ -1,8 +1,8 @@
 ///////////////////////////////////
 //Importing our Dependencies
 ///////////////////////////////////
-require('dotenv').config() // brings in .env vars
-const mongoose = require('mongoose') // our database library
+require("dotenv").config() // brings in .env vars
+const mongoose = require("mongoose") // our database library
 
 /////////////////////////////////////
 // Establishing  Database Connection

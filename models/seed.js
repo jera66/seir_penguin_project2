@@ -13,71 +13,39 @@ const Book = require('./book')
 //Saving the connection in a variable
 const connect = mongoose.connection
 
-// //Making sure the code doesn't run until the connection is open
-// connect.on("open", () => {
-//seed route - seed our starter data
-router.get('/seed', (req, res) => {
-  // array of starter fruits
+///Making sure the code doesn't run until the connection is open
+connect.on("open", () => {
+  // array of starter books
   const books = [
-    {
-      author: 'Kenyatta Young',
-      book: 'When whales fly',
-      readyForPublishing: true
-    },
-    {
-      author: 'Karl Czerny',
-      book: 'Virtuosic piano solos',
-      readyForPublishing: false
-    },
-    {
-      author: 'C. S. Lewis',
-      book: 'Mere christianity',
-      readyForPublishing: false
-    },
-    {
-      author: 'Thomas Aquinas',
-      book: 'Treatise on law',
-      readyForPublishing: false
-    },
-    {
-      author: 'Alan Cohen',
-      book: 'Dare to be yourself',
-      readyForPublishing: true
-    },
-    {
-      author: 'Stephen Hawking',
-      book: 'God created the integers',
-      readyForPublishing: true
-    },
-    {
-      author: 'Michael Erard',
-      book: 'Babel no more',
-      readyForPublishing: true
-    },
-    {
-      author: 'Tyler Perry',
-      book: 'The haves and the have nots',
-      readyForPublishing: false
-    },
+    {author: 'Kenyatta Young',title: 'When whales fly',readyForPublishing: true},
+    {author: 'Karl Czerny',title: 'Virtuosic piano solos',readyForPublishing: false},
+    {author: 'C. S. Lewis',title: 'Mere christianity',readyForPublishing: false},
+    {author: 'Thomas Aquinas',title: 'Treatise on law',readyForPublishing: false},
+    {author: 'Alan Cohen',title: 'Dare to be yourself',readyForPublishing: true},
+    {author: 'Stephen Hawking',title: 'God created the integers',readyForPublishing: true},
+    {author: 'Michael Erard',title: 'Babel no more',readyForPublishing: true},
+    {author: 'Tyler Perry',title: 'The haves and the have nots',readyForPublishing: false},
     { author: 'Apostle Paul', book: 'Acts', readyForPublishing: true },
-    {
-      author: 'Jerathel Jean',
-      book: "It's snowing in hell",
-      readyForPublishing: false
-    },
-    {
-      author: 'Darellson Xaven',
-      book: 'Exposing unreal people',
-      readyForPublishing: false
-    }
+    {author: 'Jerathel Jean',title: "It's snowing in hell",readyForPublishing: false},
+    {author: 'Darellson Xaven',title: 'Exposing unreal people',readyForPublishing: false},
   ]
 
   //Deleting all books
-  Book.deleteMany({}).then(data => {
+  Book.deleteMany({})
+  .then((deletedBooks) => {
     //Seed the starter books
-    Book.create(books).then(data => {
-      //Sending created books back as JSON
-      res.json(data)
+    Book.create(books)
+    .then((newBooks) => {
+      console.log(newBooks)
+      connect.close()
     })
+    .catch((error) => {
+      console.log(error)
+      connect.close()
+    })
+  })
+  .catch((error) => {
+      console.log(error)
+      connect.close()
   })
 })

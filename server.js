@@ -12,60 +12,33 @@ const BooksRouter = require('./controllers/book')
 const UserRouter = require('./controllers/user')
 const session = require('express-session') // session middleware
 const MongoStore = require('connect-mongo') // save sessions in mongo
+const Book = require('./models/book')
+const middleware = require('./utils/middleware')
+const HomeRouter = require('./controllers/home')
 
 
-/////////////////////////////////
-// Create our app with object, configure liquid
-/////////////////////////////////
-// import liquid
-// const liquid = require('liquid-express-views')
-// // construct an absolute path to our views folder
-// const viewsFolder = path.resolve(__dirname, 'views/')
-// console.log(viewsFolder)
-/////////////////////////////////
-// Create our app with object, configure liquid
-/////////////////////////////////
-//Constructing an absolute path to our views folder
-const viewsFolder = path.resolve(__dirname, 'views/')
 
-//Create an app object with liquid, passing the path to the views folder
-const app = liquid(express(), { root: viewsFolder })
 
-//Console.logging app to confirm it exists
-console.log(app)
+/////////////////////////////////////////////////
+// Create our Express Application Object
+/////////////////////////////////////////////////
+const app = require('liquid-express-views')(express(), {root: [path.resolve(__dirname, 'views/')]})
 
-/////////////////////////////////////////////
-//Registering Our Middleware
-/////////////////////////////////////////////
-//Logging
-app.use(morgan('tiny'))
-//Overriding request methods
-app.use(methodOverride('_method'))
-//Parsing urlencoded from form submission
-app.use(express.urlencoded({ extended: true }))
-//Public folder setup for serving files statically
-app.use(express.static('public'))
-//Middleware to create sessions (req.session)
-app.use(
-  session({
-    secret: process.env.SECRET,
-    store: MongoStore.create({ mongoUrl: process.env.DATABASE_URL }),
-    resave: false,
-    saveUninitialized: true
-  })
-)
+/////////////////////////////////////////////////////
+// Middleware
+/////////////////////////////////////////////////////
+middleware(app)
 
-//Exporting the port number from env
-const PORT = process.env.PORT || 5500
-app.get('/', (req, res) => {
-  res.send("This app is working!")
-})
+////////////////////////////////////////////
+// Routes
+////////////////////////////////////////////
+app.use('/books', BooksRouter) //Sending all "/books" routes to book router
+app.use('/user', UserRouter) //Sending all "/user" routes to user router
+app.use('/', HomeRouter) //Handling all other requests.
 
-// Registering books Router
-app.use('/books', BooksRouter)
 
-/////////////////////////////////////////////
-// Setup Server Listener
-/////////////////////////////////////////////
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
-
+//////////////////////////////////////////////
+// Server Listener
+//////////////////////////////////////////////
+const PORT = process.env.PORT
+app.listen(PORT, () => console.log(`Now Listening on port ${PORT}`))

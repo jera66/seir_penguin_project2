@@ -2,10 +2,10 @@
 // Import Dependencies
 /////////////////////////
 const express = require('express') // express for Router function
-const Book = require('../models/book.js') // book model
+const Book = require('../models/book') // book model
 
 //////////////////
-// create router
+// Creating router
 //////////////////
 const router = express.Router()
 
@@ -30,26 +30,28 @@ router.use((req, res, next) => {
 
 //seed route - seed our starter data
 router.get('/seed', (req, res) => {
-  // array of starter fruits
+  // array of starter books
   const books = [
-  {author: 'Kenyatta Young',book: 'When whales fly',readyForPublishing: true},
-  {author: 'Karl Czerny',book: 'Virtuosic piano solos',readyForPublishing: false},
-  {author: 'C. S. Lewis',book: 'Mere christianity',readyForPublishing: false},
-  {author: 'Thomas Aquinas',book: 'Treatise on law',readyForPublishing: false},
-  {author: 'Alan Cohen',book: 'Dare to be yourself',readyForPublishing: true},
-  {author: 'Stephen Hawking',book: 'God created the integers',readyForPublishing: true},
-  {author: 'Michael Erard',book: 'Babel no more',readyForPublishing: true},
-  {author: 'Tyler Perry',book: 'The haves and the have nots',readyForPublishing: false},
-  {author: 'Apostle Paul',book: 'Acts',readyForPublishing: true},
-  {author: 'Jerathel Jean',book: 'It\'s snowing in hell',readyForPublishing: false},
-  {author: 'Darellson Xaven',book: 'Exposing unreal people',readyForPublishing: false}
+  {author: 'Kenyatta Young',title: 'When whales fly',readyForPublishing: true},
+  {author: 'Karl Czerny',title: 'Virtuosic piano solos',readyForPublishing: false},
+  {author: 'C. S. Lewis',title: 'Mere christianity',readyForPublishing: false},
+  {author: 'Thomas Aquinas',title: 'Treatise on law',readyForPublishing: false},
+  {author: 'Alan Cohen',title: 'Dare to be yourself',readyForPublishing: true},
+  {author: 'Stephen Hawking',title: 'God created the integers',readyForPublishing: true},
+  {author: 'Michael Erard',title: 'Babel no more',readyForPublishing: true},
+  {author: 'Tyler Perry',title: 'The haves and the have nots',readyForPublishing: false},
+  {author: 'Apostle Paul',title: 'Acts',readyForPublishing: true},
+  {author: 'Jerathel Jean',title: 'It\'s snowing in hell',readyForPublishing: false},
+  {author: 'Darellson Xaven',title: 'Exposing unreal people',readyForPublishing: false}
 ]
 
 
   //Deleting all books
-  Book.deleteMany({}).then(data => {
+  Book.deleteMany({})
+  .then((data) => {
     //Seed the starter books
-    Book.create(books).then(data => {
+    Book.create(books)
+    .then((data) => {
       //Sending created books back as JSON
       res.json(data)
     })
@@ -60,12 +62,14 @@ router.get('/seed', (req, res) => {
 router.get('/', (req, res) => {
   //Finding all the books
   Book.find({ username: req.session.username })
-    .then(books => {
+    .then((books) => {
+      console.log(books)
       // render the index template with the fruits
-      res.render('fruits/index.liquid', { books })
+      res.render('books/index.liquid', { books })
     })
     // error handling
-    .catch(error => {
+    .catch((error) => {
+      console.log(error)
       res.json({ error })
     })
 })
@@ -78,19 +82,20 @@ router.get('/new', (req, res) => {
 //Creating - post request - /books
 router.post('/', (req, res) => {
   //Converting the checkbox property to true or false
-  req.body.readyToEat = req.body.readyForPublishing === 'on' ? true : false
+  req.body.readyForPublishing = req.body.readyForPublishing === 'on' ? true : false
 
   //Adding the username to req.body, to track user
   req.body.username = req.session.username
 
-  // create the new fruit
+  // create the new book
   Book.create(req.body)
-    .then(book => {
+    .then((books) => {
       // redirect the user back to the index route
       res.redirect('/books')
     })
     // error handling
-    .catch(error => {
+    .catch((error) => {
+      console.log(error)
       res.json({ error })
     })
 })
@@ -102,12 +107,13 @@ router.get('/:id/edit', (req, res) => {
 
   //Getting the book with the matching id
   Book.findById(id)
-    .then(book => {
+    .then((book) => {
       //Rendering the edit page template with the book data
       res.render('books/edit.liquid', { book })
     })
     // error handling
-    .catch(error => {
+    .catch((error) => {
+      console.log(error)
       res.json({ error })
     })
 })
@@ -121,13 +127,14 @@ router.put('/:id', (req, res) => {
   req.body.readyForPublishing = req.body.readyForPublishing === 'on' ? true : false
 
   //Updating the item with the matching id
-  Fruit.findByIdAndUpdate(id, req.body, { new: true })
-    .then(book => {
+  Book.findByIdAndUpdate(id, req.body, { new: true })
+    .then((book) => {
       // redirect user back to index
       res.redirect('/books')
     })
     // error handling
-    .catch(error => {
+    .catch((error) => {
+      console.log(error)
       res.json({ error })
     })
 })
@@ -138,12 +145,12 @@ router.delete('/:id', (req, res) => {
   const id = req.params.id
   //Deleting the fruit
   Book.findByIdAndRemove(id)
-    .then(book => {
+    .then((book) => {
       //Redirecting user back to index
       res.redirect('/books')
     })
     // error handling
-    .catch(error => {
+    .catch((error) => {
       res.json({ error })
     })
 })
@@ -155,12 +162,13 @@ router.get('/:id', (req, res) => {
 
   // get that particular fruit from the database
   Book.findById(id)
-    .then(book => {
+    .then((book) => {
       // render the show template with the fruit
       res.render('books/show.liquid', { book })
     })
     // error handling
-    .catch(error => {
+    .catch((error) => {
+      console.log(error)
       res.json({ error })
     })
 })

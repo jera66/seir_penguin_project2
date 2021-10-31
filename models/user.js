@@ -10,13 +10,13 @@ const mongoose = require('./connection')
 //Destructuring Schema and model from mongoose
 const { Schema, model } = mongoose
 
-//Making a user schema
+//Making books schema
 const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true }
 })
 
-//Making the User Model
+//Making the book Model
 const User = model('User', userSchema)
 
 ///////////////////////////////////////

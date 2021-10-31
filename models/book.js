@@ -10,18 +10,19 @@ const mongoose = require('./connection')
 //Destructuring Schema and model from mongoose
 const { Schema, model } = mongoose
 
-//Making a books schema
-const bookSchema = new Schema({
-  title: String,
+//Making  books schema
+const booksSchema = new Schema({
   author: String,
-  readyForPublishing: Boolean
+  title: String,
+  readyForPublishing: Boolean,
+  username: String,
 })
 
 //Making the book Model
-const Book = model('Book', bookSchema)
+const Book = model('Book', booksSchema)
 
-//Logging the model to make sure it exists
-console.log(Book)
+// //Logging the model to make sure it exists
+// console.log(Book)
 
 ///////////////////////////////////////
 //Exporting the book model
