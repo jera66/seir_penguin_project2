@@ -10,11 +10,11 @@
             Editing in progress.
         {% endif %}
     </h2>
-    <a href="/books/{{ book._id }}/edit"><button>EDIT</button></a>
+    <a href="/books/{{ book._id }}/edit"><button class ="main">EDIT</button></a>
     <form action="/books/{{ book._id }}?_method=DELETE" method="post">
     <input type="submit" value="DELETE">
     </form>
-    <a href="/books"><button>Back to Main</button></a>
+    <a href="/books"><button class ="main">Back to Main</button></a>
 
 </article>
 

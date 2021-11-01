@@ -1,0 +1,42 @@
+h1 {
+    text-align: center;
+    color: rgb(105, 82, 105);
+    margin: 100px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-shadow: 1px 1px white;
+}
+body {
+    background-image: linear-gradient(88deg, transparent, purple, gray);
+    
+}
+a {
+margin-left: 625px;
+margin-right: -500px;  
+}
+button {
+    background-image: linear-gradient(88deg, transparent, purple, gray);
+    }
+
+    form {
+    /* Size and position */
+    width: 340px;
+    margin: 10px auto;
+    padding: 15px;
+    /* position: relative; */
+
+    /* Styles */
+     background-image: linear-gradient(88deg, transparent, purple, gray);
+    border-radius: 4px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: rgb(204, 158, 204);
+    box-shadow:
+        0 2px 2px rgba(0,0,0,0.2),        
+        0 1px 5px rgba(0,0,0,0.2),        
+        0 0 0 12px rgba(255,255,255,0.4); 
+}
+input[type=Username] {
+    background-image: linear-gradient(88deg, transparent, purple, gray);
+}
+.main{
+  margin: 0 auto;
+}

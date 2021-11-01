@@ -4,7 +4,7 @@
 const express = require('express')
 
 /////////////////////////////////////////
-// Create Route
+// Creating the router
 /////////////////////////////////////////
 const router = express.Router()
 
